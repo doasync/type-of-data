@@ -15,6 +15,19 @@
 Check data types
 ======================
 
+For example:
+```javascript
+typeOf([
+  {selector, is: String},
+  {regExp, is: RegExp},
+  {returnAll, is: Boolean}
+]);
+```
+or
+```javascript
+typeOf({str, is: String});
+```
+
 You can use these types:
 * **'global'** - global object
 * **'process'** - NodeJS process
@@ -42,8 +55,6 @@ You can use these types:
 * **Set**
 * **WeakSet**
 * **Error**
-* **Buffer**
-* **Buffer**
 * **DataView**
 * **Float32Array**
 * **Uint8Array**
@@ -53,6 +64,10 @@ You can use these types:
 * toString tag
 
 Do not use 'undefined' type, use 'optional' or 'opt' key.
+
+Use destructuring assignment to unpack properties from objects into distinct variables.
+
+The function returns an object with all the variables.
 
 Installation
 -------------
@@ -211,7 +226,7 @@ describe('typeOf:', () => {
       () => typeOf({variable: new Number(214), is: 'number'}),
       () => typeOf({variable: Infinity, is: Number}), // Not a valid number
       () => typeOf({variable: NaN, is: Number}), // Not a valid number
-      () => typeOf({variable: 124214, is: String}), // Not string
+      () => typeOf({variable: 124214, is: String}), // Not a string
       () => typeOf({variable: true, is: [Array, String]}), // Not found
       () => typeOf({variable: undefined, is: [Array, null]}), // Not optional
       () => typeOf({variable: undefined, is: Object}),
