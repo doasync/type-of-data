@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "author": "doasync <doasync@gmail.com>",
   "license": "MIT",
-  "description": "Assure data types of variables",
+  "description": "Reliable dynamic type checking",
   "deprecated": false,
   "engines": {
     "node": ">= 8.3.0",
