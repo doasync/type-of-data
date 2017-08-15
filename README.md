@@ -12,9 +12,13 @@
 [telegram-image]: http://i.imgur.com/WANXk3d.png
 [telegram-url]: https://t.me/doasync
 
-Check data types
+Dynamic type checking
 ======================
 
+Static type checking does not work in all situations, especially when dealing with data from unknown or untrusted sources. In those cases the application must resort to dynamic type checking at run-time. 
+
+Check data types at runtime
+-------------
 For example:
 ```javascript
 typeOf([
