@@ -1,6 +1,6 @@
 {
   "name": "type-of-data",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "doasync <doasync@gmail.com>",
   "license": "MIT",
   "description": "Assure data types of variables",
