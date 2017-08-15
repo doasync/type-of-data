@@ -1,0 +1,68 @@
+{
+  "name": "type-of-data",
+  "version": "1.0.0",
+  "author": "doasync <doasync@gmail.com>",
+  "license": "MIT",
+  "description": "Assure data types of variables",
+  "deprecated": false,
+  "engines": {
+    "node": ">= 8.3.0",
+    "npm": ">= 5.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doasync/type-of-data.git"
+  },
+  "dependencies": {
+    "type-detect": "^4.0.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "chai-as-promised": "^7.1.1",
+    "eslint-config-airbnb-standard": "^1.4.1",
+    "mocha": "^3.5.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "type",
+    "types",
+    "typeof",
+    "typecheck",
+    "typechecking",
+    "dynamyc",
+    "runtime",
+    "static",
+    "check",
+    "check types",
+    "check-types",
+    "flow",
+    "flowtype",
+    "typescript",
+    "flow-runtime",
+    "inctanceof",
+    "class",
+    "verify",
+    "assert",
+    "assure",
+    "validation",
+    "cast",
+    "coercion",
+    "is type",
+    "type of variable",
+    "detect",
+    "specify",
+    "transform",
+    "boolean",
+    "number",
+    "string",
+    "symbol",
+    "function",
+    "object",
+    "array",
+    "date",
+    "regexp",
+    "buffer"
+  ]
+}
