@@ -12,11 +12,53 @@
 [telegram-image]: http://i.imgur.com/WANXk3d.png
 [telegram-url]: https://t.me/doasync
 
+Check data types
+======================
+
+You can use these types:
+* **'global'** - global object
+* **'process'** - NodeJS process
+* **null** - null value
+* **'null'** - null value
+* **Boolean** - primitive booleans and instances of Boolean
+* **'boolean'** - primitive booleans only
+* **'Boolean'** - instances of Boolean only
+* **String** - primitive strings and instances of String
+* **'string'** - primitive strings only
+* **'String'** - instances of String only
+* **Number** - instances of Number only
+* **'number'** - primitive numbers only
+* **'Number'** - instances of Number only
+* **Symbol** - symbols (they are primitives)
+* **Object** - any objects which toString tag is Object
+* **Function** - any function (AsyncFunction and GeneratorFunction)
+* **JSON** - any valid json string
+* **Array**
+* **RegExp**
+* **Date**
+* **Promise**
+* **Map**
+* **WeakMap**
+* **Set**
+* **WeakSet**
+* **Error**
+* **Buffer**
+* **Buffer**
+* **DataView**
+* **Float32Array**
+* **Uint8Array**
+* ...
+* Classes and constructors
+* [Symbol.toStringTag]
+* toString tag
+
+Do not use 'undefined' type, use 'optional' or 'opt' key.
+
 Installation
 -------------
 
 ```bash
-npm i --save type-of-data
+npm i type-of-data
 ```
 
 Usage
@@ -44,8 +86,7 @@ typeOf({regExp, is: RegExp});
 typeOf([
   {str, is: String}, // Any string
   {str, is: 'string'}, // Primitive string only
-  {num: 22, is: Number}, // Null type
-
+  {num: 22, is: Number},
   {variable, is: [null, Object, String]}, // Null type
   {param, is: [Object, Array], optional: true}, // Can be undefined
   {x, is: ['string', 'number', Array]} // Primitive types only
@@ -55,7 +96,7 @@ typeOf([
 Tests:
 
 ```javascript
-describe('typeOf', () => {
+describe('typeOf:', () => {
   it('multiple definitions', () => {
     const Noop = function () {};
 
@@ -160,8 +201,8 @@ describe('typeOf', () => {
 ```
 Throws TypeError:
 ```javascript
-describe('single', () => {
-  it('throws', () => {
+describe('typeOf:', () => {
+  it('single definition throws', () => {
     const fns = [
       () => typeOf({variable: new Boolean({}), is: 'boolean'}), // Not primitive
       () => typeOf({variable: false, is: 'Boolean'}), // Not object
@@ -183,8 +224,6 @@ describe('single', () => {
   });
 });
 ```
-
-
 
 Tip
 ------------------

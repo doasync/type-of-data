@@ -2,13 +2,6 @@
 
 const typeDetect = require('type-detect');
 
-function isFunction (fn) {
-  return !!(
-    fn && fn.constructor && fn.call && fn.apply &&
-    Object.prototype.toString.call(fn) === '[object Function]'
-  );
-}
-
 /**
  * Detect variable type
  *
@@ -162,7 +155,7 @@ function checkVariableIs (variable, ofType) {
     throw new Error(`Definition #${variable.index}: type "undefined" is not a valid type, use "optional" key instead`);
   } else if (ofType === null) {
     return (variable.value === null);
-  } else if (isFunction(ofType)) {
+  } else if (typeof ofType === 'function') {
     return checkByConstructor(variable, ofType);
   } else if (typeof ofType === 'string') {
     return checkCustomType(variable, ofType);

@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-expressions */
+/* eslint-disable */
 
 const {describe, it} = require('mocha');
 const {expect, assert} = require('chai');
@@ -33,101 +33,105 @@ process.on('unhandledRejection', err => err && console.error(err));
 */
 
 describe('Constructor names', () => {
-  assert(Boolean.name === 'Boolean');
-  assert(String.name === 'String');
-  assert(Number.name === 'Number');
-  assert(Object.name === 'Object');
-  assert(Function.name === 'Function');
-  assert(Array.name === 'Array');
-  assert(RegExp.name === 'RegExp');
-  assert(Date.name === 'Date');
-  assert(Symbol.name === 'Symbol');
-  assert(Map.name === 'Map');
-  assert(WeakMap.name === 'WeakMap');
-  assert(Set.name === 'Set');
-  assert(WeakSet.name === 'WeakSet');
-  assert(JSON.name === undefined && JSON[Symbol.toStringTag] === 'JSON');
+  it('check', () => {
+    assert(Boolean.name === 'Boolean');
+    assert(String.name === 'String');
+    assert(Number.name === 'Number');
+    assert(Object.name === 'Object');
+    assert(Function.name === 'Function');
+    assert(Array.name === 'Array');
+    assert(RegExp.name === 'RegExp');
+    assert(Date.name === 'Date');
+    assert(Symbol.name === 'Symbol');
+    assert(Map.name === 'Map');
+    assert(WeakMap.name === 'WeakMap');
+    assert(Set.name === 'Set');
+    assert(WeakSet.name === 'WeakSet');
+    assert(JSON.name === undefined && JSON[Symbol.toStringTag] === 'JSON');
 
-  assert(Promise.name === 'Promise');
-  assert(Int8Array.name === 'Int8Array');
-  assert(Uint8Array.name === 'Uint8Array');
-  assert(Int16Array.name === 'Int16Array');
-  assert(Uint16Array.name === 'Uint16Array');
-  assert(Int32Array.name === 'Int32Array');
-  assert(Float32Array.name === 'Float32Array');
-  assert(Float64Array.name === 'Float64Array');
-  assert(ArrayBuffer.name === 'ArrayBuffer');
-  assert(ArrayBuffer.name === 'ArrayBuffer');
-  assert(ArrayBuffer.name === 'ArrayBuffer');
-  assert(ArrayBuffer.name === 'ArrayBuffer');
-  assert(ArrayBuffer.name === 'ArrayBuffer');
+    assert(Promise.name === 'Promise');
+    assert(Int8Array.name === 'Int8Array');
+    assert(Uint8Array.name === 'Uint8Array');
+    assert(Int16Array.name === 'Int16Array');
+    assert(Uint16Array.name === 'Uint16Array');
+    assert(Int32Array.name === 'Int32Array');
+    assert(Float32Array.name === 'Float32Array');
+    assert(Float64Array.name === 'Float64Array');
+    assert(ArrayBuffer.name === 'ArrayBuffer');
+    assert(ArrayBuffer.name === 'ArrayBuffer');
+    assert(ArrayBuffer.name === 'ArrayBuffer');
+    assert(ArrayBuffer.name === 'ArrayBuffer');
+    assert(ArrayBuffer.name === 'ArrayBuffer');
 
-  const Noop = function () {};
-  function Nothing () {}
-  const noop = new Noop();
-  assert(Noop.name === 'Noop');
-  assert(Nothing.name === 'Nothing');
-  assert(noop.constructor.name === 'Noop');
+    const Noop = function () {};
+    function Nothing () {}
+    const noop = new Noop();
+    assert(Noop.name === 'Noop');
+    assert(Nothing.name === 'Nothing');
+    assert(noop.constructor.name === 'Noop');
 
-  const myObject = {};
-  myObject[Symbol.toStringTag] = 'myCustomType';
-  assert(type(myObject) === 'myCustomType');
+    const myObject = {};
+    myObject[Symbol.toStringTag] = 'myCustomType';
+    assert(type(myObject) === 'myCustomType');
 
-  assert(getTag(async () => {}) === 'AsyncFunction');
-  assert(getTag(function* generator () {}) === 'GeneratorFunction');
-
+    assert(getTag(async () => {}) === 'AsyncFunction');
+    assert(getTag(function* generator () {}) === 'GeneratorFunction');
+  });
 });
 
 describe('Instanceof', () => {
-  assert(!(true instanceof Boolean));
-  assert((new Boolean()) instanceof Boolean);
+  it('check', () => {
+    assert(!(true instanceof Boolean));
+    assert((new Boolean()) instanceof Boolean);
 
-  assert(!('hello world' instanceof String));
-  assert((new String('hello')) instanceof String);
+    assert(!('hello world' instanceof String));
+    assert((new String('hello')) instanceof String);
 
-  assert(!(1 instanceof Number));
-  assert(!(1.234 instanceof Number));
-  assert(!(-1 instanceof Number));
-  assert(!(-1.234 instanceof Number));
-  assert(!(Infinity instanceof Number));
-  assert(!(NaN instanceof Number));
-  assert((new Number(1)) instanceof Number);
+    assert(!(1 instanceof Number));
+    assert(!(1.234 instanceof Number));
+    assert(!(-1 instanceof Number));
+    assert(!(-1.234 instanceof Number));
+    assert(!(Infinity instanceof Number));
+    assert(!(NaN instanceof Number));
+    assert((new Number(1)) instanceof Number);
 
-  assert(({}) instanceof Object);
-  const Noop = function () {};
-  assert((new Noop) instanceof Object);
-  assert((new Object({s: 2})) instanceof Object);
+    assert(({}) instanceof Object);
+    const Noop = function () {
+    };
+    assert((new Noop) instanceof Object);
+    assert((new Object({s: 2})) instanceof Object);
 
-  assert((function () {}) instanceof Function);
-  assert((async function () {}) instanceof Function);
-  assert((async () => {}) instanceof Function);
-  assert((() => {}) instanceof Function);
-  assert((function named () {}) instanceof Function);
-  assert((function* g () {}) instanceof Function);
+    assert((function () {}) instanceof Function);
+    assert((async function () {}) instanceof Function);
+    assert((async () => {}) instanceof Function);
+    assert((() => {}) instanceof Function);
+    assert((function named () {}) instanceof Function);
+    assert((function* g () {}) instanceof Function);
 
-  assert((new Map() instanceof Map));
-  assert((new WeakMap()) instanceof WeakMap);
-  assert((new Set()) instanceof Set);
-  assert((new WeakSet()) instanceof WeakSet);
-  assert((new Promise(function () {}) instanceof Promise));
-  assert((new Int8Array()) instanceof Int8Array);
-  assert((new Uint8Array()) instanceof Uint8Array);
-  assert((new Int16Array()) instanceof Int16Array);
-  assert((new Uint16Array()) instanceof Uint16Array);
-  assert((new Int32Array()) instanceof Int32Array);
-  assert((new Float32Array()) instanceof Float32Array);
-  assert((new Float64Array()) instanceof Float64Array);
-  assert((new ArrayBuffer()) instanceof ArrayBuffer);
-  assert((new DataView(new ArrayBuffer())) instanceof DataView);
+    assert((new Map() instanceof Map));
+    assert((new WeakMap()) instanceof WeakMap);
+    assert((new Set()) instanceof Set);
+    assert((new WeakSet()) instanceof WeakSet);
+    assert((new Promise(function () {}) instanceof Promise));
+    assert((new Int8Array()) instanceof Int8Array);
+    assert((new Uint8Array()) instanceof Uint8Array);
+    assert((new Int16Array()) instanceof Int16Array);
+    assert((new Uint16Array()) instanceof Uint16Array);
+    assert((new Int32Array()) instanceof Int32Array);
+    assert((new Float32Array()) instanceof Float32Array);
+    assert((new Float64Array()) instanceof Float64Array);
+    assert((new ArrayBuffer()) instanceof ArrayBuffer);
+    assert((new DataView(new ArrayBuffer())) instanceof DataView);
 
-  assert(!(Symbol('s') instanceof Symbol));
+    assert(!(Symbol('s') instanceof Symbol));
 
-  // ERRORS:
-  // assert(!(([]) instanceof 'Array'));
-  // assert((new Array()) instanceof 'Array');
-  // assert((/a-z/gi) instanceof 'RegExp');
-  // assert((new RegExp('a-z')) instanceof 'RegExp');
-  // assert((new Date()) instanceof 'Date');
+    // ERRORS:
+    // assert(!(([]) instanceof 'Array'));
+    // assert((new Array()) instanceof 'Array');
+    // assert((/a-z/gi) instanceof 'RegExp');
+    // assert((new RegExp('a-z')) instanceof 'RegExp');
+    // assert((new Date()) instanceof 'Date');
+  });
 });
 
 describe('type-detect', () => {
