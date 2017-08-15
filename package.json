@@ -1,6 +1,6 @@
 {
   "name": "type-of-data",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "doasync <doasync@gmail.com>",
   "license": "MIT",
   "description": "Reliable dynamic type checking",
