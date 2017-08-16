@@ -20,10 +20,15 @@
     "chai": "^4.1.1",
     "chai-as-promised": "^7.1.1",
     "eslint-config-airbnb-standard": "^1.4.1",
+    "flow-bin": "^0.53.0",
+    "flow-jsdoc": "^0.3.0",
+    "flow-typed": "^2.1.5",
     "mocha": "^3.5.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "flow": "flow-jsdoc -f ./index.js | tee ./flow/index.js > /dev/null && cd ./flow && flow",
+    "lint": "eslint ."
   },
   "keywords": [
     "type",

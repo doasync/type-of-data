@@ -8,7 +8,7 @@ const typeDetect = require('type-detect');
  * @param {*} variable - A variable of any type
  * @return {string} type - Type of variable (string representation, lowercase for primitives)
  */
-function getType (variable) {
+function getType (variable: any) : string {
   const type = typeDetect(variable);
 
   /* Ensure consistency of 'type-detect' */
@@ -44,7 +44,7 @@ function getType (variable) {
  * @return {string} property.key property key
  * @return {*} property.value  property value
  */
-function getFirstProp (object) {
+function getFirstProp (object: Object) : ?Object {
   for (const prop in object) {
     if (Object.prototype.hasOwnProperty.call(object, prop)) {
       return {key: prop, value: object[prop]};
@@ -59,7 +59,7 @@ function getFirstProp (object) {
  * @param {Object|Array<Object>} schema - Definition or an array of definitions
  * @return {Object} result - An object which is a map of all variables (hash map)
  */
-function checkTypes (schema) {
+function checkTypes (schema: Object | Array<Object>) : Object {
   const result = Object.create(null);
 
   if (Array.isArray(schema)) {
@@ -88,7 +88,7 @@ function checkTypes (schema) {
  * @return {string} variable.type - variable type
  */
 // eslint-disable-next-line complexity
-function checkDefinition (definition, index) {
+function checkDefinition (definition: Object, index: number) : Object {
   const definitionType = definition.is;
 
   const variable = getFirstProp(definition);
@@ -150,7 +150,7 @@ function checkDefinition (definition, index) {
  * @param {Function|?string} ofType - A type to check against (a constructor, string or null)
  * @return {boolean} - a boolean result of a check (or throws an error)
  */
-function checkVariableIs (variable, ofType) {
+function checkVariableIs (variable: Object, ofType: Function | ?string) : boolean {
   if (ofType === undefined) {
     throw new Error(`Definition #${variable.index}: type "undefined" is not a valid type, use "optional" key instead`);
   } else if (ofType === null) {
@@ -173,7 +173,7 @@ function checkVariableIs (variable, ofType) {
  * @return {boolean} - a boolean result of a check (or throws an error)
  */
 // eslint-disable-next-line complexity
-function checkByConstructor (variable, constructor) {
+function checkByConstructor (variable: Object, constructor: Function) : boolean {
   const constructorName = constructor.name;
   const {type, key, value, index, multiple} = variable;
 
@@ -213,7 +213,7 @@ function checkByConstructor (variable, constructor) {
  * @param {string} customType - A string representation of a type (is compared to typeDetect)
  * @return {boolean} - a boolean result of a check (or throws an error)
  */
-function checkCustomType (variable, customType) {
+function checkCustomType (variable: Object, customType: string) : boolean {
   const {type, key, index, multiple} = variable;
   if (type === customType) {
     return true;
@@ -230,7 +230,7 @@ function checkCustomType (variable, customType) {
  * @param {Object} variable - Variable object, returned by checkDefinition function
  * @return {boolean} - a boolean result of a check (or throws an error)
  */
-function checkJSON (variable) {
+function checkJSON (variable: Object) : boolean {
   const {key, value, index, multiple} = variable;
 
   if (isJSON(value)) {
@@ -248,7 +248,7 @@ function checkJSON (variable) {
  * @param {string} value - A string to check
  * @return {boolean} - a boolean result of a check (doesn't throw errors, just checks)
  */
-function isJSON (value) {
+function isJSON (value: string) : boolean {
   if (!(typeof value === 'string' || value instanceof String)) {
     return false;
   }
@@ -266,3 +266,4 @@ function isJSON (value) {
 }
 
 module.exports = checkTypes;
+
