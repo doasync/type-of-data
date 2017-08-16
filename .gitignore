@@ -12,3 +12,5 @@ node_modules/
 
 # Package zip-file
 type-of-data\.zip
+
+flow/index\.js

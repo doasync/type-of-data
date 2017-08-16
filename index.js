@@ -111,7 +111,7 @@ function checkDefinition (definition, index) {
     if (variable.optional) {
       return variable;
     }
-    throw new TypeError(`Definition #${index}: variable "${variable.key}" is not optional but equals undefined`);
+    throw new TypeError(`Variable "${variable.key}" is not optional but equals undefined`);
   }
 
   variable.type = getType(variable.value);
@@ -134,7 +134,7 @@ function checkDefinition (definition, index) {
     }
 
     if (!oneOfTypes) {
-      throw new TypeError(`Definition #${index}: type ${variable.type} of variable "${variable.key}" is not allowed`);
+      throw new TypeError(`Type ${variable.type} of variable "${variable.key}" is not allowed`);
     }
   } else if (checkVariableIs(variable, definitionType)) {
     return variable;
@@ -184,9 +184,9 @@ function checkByConstructor (variable, constructor) {
   // Handle NaN and Infinity
   if (type === 'number') {
     if (Number.isNaN(value)) {
-      throw new TypeError(`Definition #${index}: variable "${key}" is NaN`);
+      throw new TypeError(`Numerical variable "${key}" is NaN`);
     } else if (!Number.isFinite(value)) {
-      throw new TypeError(`Definition #${index}: variable "${key}" is Infinity`);
+      throw new TypeError(`Numerical variable "${key}" is Infinity`);
     }
   }
 
@@ -203,7 +203,7 @@ function checkByConstructor (variable, constructor) {
     return false;
   }
 
-  throw new TypeError(`Definition #${index}: variable "${key}" is not of type ${constructorName}`);
+  throw new TypeError(`Variable "${key}" is not of type ${constructorName}`);
 }
 
 /**
@@ -214,14 +214,14 @@ function checkByConstructor (variable, constructor) {
  * @return {boolean} - a boolean result of a check (or throws an error)
  */
 function checkCustomType (variable, customType) {
-  const {type, key, index, multiple} = variable;
+  const {type, key, multiple} = variable;
   if (type === customType) {
     return true;
   } else if (multiple) {
     return false;
   }
 
-  throw new TypeError(`Definition #${index}: variable "${key}" is not of type "${customType}"`);
+  throw new TypeError(`Variable "${key}" is not of type "${customType}"`);
 }
 
 /**
@@ -231,7 +231,7 @@ function checkCustomType (variable, customType) {
  * @return {boolean} - a boolean result of a check (or throws an error)
  */
 function checkJSON (variable) {
-  const {key, value, index, multiple} = variable;
+  const {key, value, multiple} = variable;
 
   if (isJSON(value)) {
     return true;
@@ -239,7 +239,7 @@ function checkJSON (variable) {
     return false;
   }
 
-  throw new TypeError(`Definition #${index}: variable "${key}" is not of type JSON`);
+  throw new TypeError(`Variable "${key}" is not of type JSON`);
 }
 
 /**
