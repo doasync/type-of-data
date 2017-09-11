@@ -1214,6 +1214,21 @@ describe('type-of-data', () => {
         .that.is.equal(obj)
         .that.is.deep.equal({a: 1});
       });
+
+      it('object with no prototype', () => {
+        const objNull = Object.create(null);
+        const fn = () => typeOf([
+          {objNull, is: Object}
+        ]);
+        expect(fn).not.to.throw();
+        const result = fn();
+        expect(result)
+        .to.be.an('object')
+        .that.have.property('objNull')
+        .that.is.an('Object')
+        .that.is.equal(objNull)
+        .that.is.deep.equal({});
+      });
     });
 
     describe('Object throws', () => {
@@ -1418,6 +1433,20 @@ describe('type-of-data', () => {
         .that.is.equal(func);
       });
 
+      it('Normal async function tag', () => {
+        const func = async function () {};
+        const fn = () => typeOf([
+          {func, is: 'AsyncFunction'}
+        ]);
+        expect(fn).not.to.throw();
+        const result = fn();
+        expect(result)
+        .to.be.a('object')
+        .that.have.property('func')
+        .that.is.a('function')
+        .that.is.equal(func);
+      });
+
       it('Arrow async function', () => {
         const func = async () => {};
         const fn = () => typeOf([
@@ -1436,6 +1465,20 @@ describe('type-of-data', () => {
         const func = function* generator () {};
         const fn = () => typeOf([
           {func, is: Function}
+        ]);
+        expect(fn).not.to.throw();
+        const result = fn();
+        expect(result)
+        .to.be.a('object')
+        .that.have.property('func')
+        .that.is.a('function')
+        .that.is.equal(func);
+      });
+
+      it('Generator function tag', () => {
+        const func = function* generator () {};
+        const fn = () => typeOf([
+          {func, is: 'GeneratorFunction'}
         ]);
         expect(fn).not.to.throw();
         const result = fn();
@@ -2328,8 +2371,11 @@ describe('type-of-data', () => {
     describe('multiple definitions', () => {
       it('multiple', () => {
         const Noop = function () {};
+        const globalObject = typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : self);
 
         const fn = () => typeOf([
+          {variable: globalObject, is: 'global'},
+
           {variable: true, is: Boolean},
           {variable: false, is: Boolean},
           {variable: new Boolean([1,2]), is: Boolean},
@@ -2359,6 +2405,7 @@ describe('type-of-data', () => {
 
           {variable: '', is: String},
           {variable: 'gsd', is: String},
+          {variable: ('gsd')[Symbol.iterator](), is: 'String Iterator'},
           {variable: String(''), is: String},
           {variable: new String(1), is: String},
           {variable: new String(false), is: 'String'},
@@ -2375,6 +2422,7 @@ describe('type-of-data', () => {
           {variable: [], is: Array},
           {variable: [1,2,3], is: 'Array'},
           {variable: new Array(10), is: Array},
+          {variable: [].keys(), is: 'Array Iterator'},
 
           {variable: {}, is: Object},
           {variable: {x: 2}, is: 'Object'},
@@ -2392,6 +2440,8 @@ describe('type-of-data', () => {
           {variable: async function () {}, is: Function},
           {variable: async () => {}, is: Function},
           {variable: function* gen () {}, is: Function},
+          {variable: async () => {}, is: 'AsyncFunction'},
+          {variable: function* gen () {}, is: 'GeneratorFunction'},
 
           {variable: new Date(), is: Date},
           {variable: new Date(), is: 'Date'},
@@ -2407,8 +2457,10 @@ describe('type-of-data', () => {
 
           {variable: new Map(), is: Map},
           {variable: new Map(), is: 'Map'},
+          {variable: (new Map()).values(), is: 'Map Iterator'},
           {variable: new Set(), is: Set},
           {variable: new Set(), is: 'Set'},
+          {variable: (new Set()).values(), is: 'Set Iterator'},
           {variable: new WeakMap(), is: WeakMap},
           {variable: new WeakMap(), is: 'WeakMap'},
           {variable: new WeakSet(), is: WeakSet},

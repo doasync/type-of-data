@@ -43,20 +43,26 @@ You can use these types:
 * **String** - primitive strings and instances of String
 * **'string'** - primitive strings only
 * **'String'** - instances of String only
+* **'String Iterator'** - String iterator
 * **Number** - instances of Number only
 * **'number'** - primitive numbers only
 * **'Number'** - instances of Number only
 * **Symbol** - symbols (they are primitives)
 * **Object** - any objects which toString tag is Object
 * **Function** - any function (AsyncFunction and GeneratorFunction)
+* **'AsyncFunction'** - async functions
+* **'GeneratorFunction'** - generator functions
 * **JSON** - any valid json string
-* **Array**
+* **Array** - any objects which toString tag is Array
+* **'Array Iterator'** - array iterator (for example, [].keys())
 * **RegExp**
 * **Date**
 * **Promise**
 * **Map**
+* **'Map Iterator'**
 * **WeakMap**
 * **Set**
+* **'Set Iterator'**
 * **WeakSet**
 * **Error**
 * **DataView**
@@ -118,16 +124,10 @@ Tests:
 describe('typeOf:', () => {
   it('multiple definitions', () => {
     const Noop = function () {};
+    const globalObject = typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : self);
 
     const fn = () => typeOf([
-      
-      {variable: null, is: null},
-      {variable: null, is: 'null'},
-      {variable: null, is: [Boolean, null]},
-      {variable: null, is: ['null', Number, Boolean]},
-      
-      {variable: undefined, is: [Number, Boolean], optional: true},
-      {variable: undefined, is: Object, opt: true},
+      {variable: globalObject, is: 'global'},
 
       {variable: true, is: Boolean},
       {variable: false, is: Boolean},
@@ -158,6 +158,7 @@ describe('typeOf:', () => {
 
       {variable: '', is: String},
       {variable: 'gsd', is: String},
+      {variable: ('gsd')[Symbol.iterator](), is: 'String Iterator'},
       {variable: String(''), is: String},
       {variable: new String(1), is: String},
       {variable: new String(false), is: 'String'},
@@ -174,6 +175,7 @@ describe('typeOf:', () => {
       {variable: [], is: Array},
       {variable: [1,2,3], is: 'Array'},
       {variable: new Array(10), is: Array},
+      {variable: [].keys(), is: 'Array Iterator'},
 
       {variable: {}, is: Object},
       {variable: {x: 2}, is: 'Object'},
@@ -191,6 +193,8 @@ describe('typeOf:', () => {
       {variable: async function () {}, is: Function},
       {variable: async () => {}, is: Function},
       {variable: function* gen () {}, is: Function},
+      {variable: async () => {}, is: 'AsyncFunction'},
+      {variable: function* gen () {}, is: 'GeneratorFunction'},
 
       {variable: new Date(), is: Date},
       {variable: new Date(), is: 'Date'},
@@ -206,8 +210,10 @@ describe('typeOf:', () => {
 
       {variable: new Map(), is: Map},
       {variable: new Map(), is: 'Map'},
+      {variable: (new Map()).values(), is: 'Map Iterator'},
       {variable: new Set(), is: Set},
       {variable: new Set(), is: 'Set'},
+      {variable: (new Set()).values(), is: 'Set Iterator'},
       {variable: new WeakMap(), is: WeakMap},
       {variable: new WeakMap(), is: 'WeakMap'},
       {variable: new WeakSet(), is: WeakSet},

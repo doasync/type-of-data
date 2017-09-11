@@ -215,7 +215,10 @@ function checkByConstructor (variable, constructor) {
  */
 function checkCustomType (variable, customType) {
   const {type, key, multiple} = variable;
+
   if (type === customType) {
+    return true;
+  } else if (variable.value !== null && variable.value[Symbol.toStringTag] === customType) {
     return true;
   } else if (multiple) {
     return false;
