@@ -23,7 +23,7 @@
     "flow-bin": "^0.54.1",
     "flow-jsdoc": "^0.3.0",
     "flow-typed": "^2.1.5",
-    "mocha": "^3.5.2"
+    "mocha": "^10.2.0"
   },
   "scripts": {
     "test": "mocha",
